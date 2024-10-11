@@ -13,7 +13,7 @@ Node.js and MySQL
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE transactions (
+- CREATE TABLE transactions (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,
   type VARCHAR(50),
@@ -38,32 +38,38 @@ CREATE TABLE transactions (
 
 # Important points 
 Send Authorization Header : Bearer <token>
-A space in between only .
+
+"A space in between only ."
 
 
 # API Endpoints
 URL: GET /
+
 Response: "Landing Page !!"
 User Registration:
 
 URL: POST /signup
-- Body Parameters:
+
+Body Parameters:
 username: Username of the user.
 password: Password of the user.
 Response: Registers the user and hashes the password.
 
 URL: POST /login
+
 Body Parameters:
 username: Username of the user.
 password: Password of the user.
 Response: Returns a JWT token if the credentials are correct.
 
 URL: GET /balance
+
 Headers:
 Authorization: Bearer <JWT token>
 Response: Returns the user's balance.
 
 URL: POST /withdraw
+
 Headers:
 Authorization: Bearer <JWT token>
 Body Parameters:
@@ -71,6 +77,7 @@ amount: The amount to withdraw.
 Response: Deducts the amount from the user's balance if sufficient funds exist.
 
 URL: POST /transfer
+
 Headers:
 Authorization: Bearer <JWT token>
 Body Parameters:
