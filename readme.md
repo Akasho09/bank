@@ -23,8 +23,8 @@ Node.js and MySQL
 );
 
 # Steps to Run on Local Machine 
-- git clone https://github.com/username/repository-name.git
-- cd repository-name
+- git clone https://github.com/Akasho09/bank.git
+- cd bank
 - npm install
 - Update Credentials in index.js
   const database = mysql.createConnection({
