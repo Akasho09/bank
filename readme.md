@@ -1,27 +1,79 @@
-npm install express 
-sql
-npm install bcrypt
+# Prerequisites: 
+Node.js and MySQL
 
+# Set Up the MySQL Database
+- mysql -u root -p
+- CREATE DATABASE bank;
+- USE bank;
+- CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  balance DECIMAL(10, 2) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-// /*
-// Develop a backend application that handles basic banking operations:
-// User login functionality.
-// GET Balance API to retrieve the current balance of a user.
-// Withdrawal API to deduct money from the account.
-// Money Transfer API to enable fund transfers between users.
-// Implement logs to track activities and maintain transaction history.
-// */
-const express = require("express");
-const path = require("path");
-const mysql = require("mysql2");
-const bodyParser=require("body-parser");
-const bcrypt = require('bcrypt');
+CREATE TABLE transactions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  type VARCHAR(50),
+  amount DECIMAL(10, 2),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
 
-// Create a connection to the database
-const db = mysql.createConnection({
+# Steps to Run on Local Machine 
+- git clone https://github.com/username/repository-name.git
+- cd repository-name
+- npm install
+- Update Credentials in index.js
+  const database = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "malikshahid",
+  password: "your-password",  // Replace with your MySQL password
   database: "bank",
-  insecureAuth: true,
 });
+
+- npm start
+
+# Important points 
+Send Authorization Header : Bearer <token>
+A space in between only .
+
+
+# API Endpoints
+URL: GET /
+Response: "Landing Page !!"
+User Registration:
+
+URL: POST /signup
+- Body Parameters:
+username: Username of the user.
+password: Password of the user.
+Response: Registers the user and hashes the password.
+
+URL: POST /login
+Body Parameters:
+username: Username of the user.
+password: Password of the user.
+Response: Returns a JWT token if the credentials are correct.
+
+URL: GET /balance
+Headers:
+Authorization: Bearer <JWT token>
+Response: Returns the user's balance.
+
+URL: POST /withdraw
+Headers:
+Authorization: Bearer <JWT token>
+Body Parameters:
+amount: The amount to withdraw.
+Response: Deducts the amount from the user's balance if sufficient funds exist.
+
+URL: POST /transfer
+Headers:
+Authorization: Bearer <JWT token>
+Body Parameters:
+recipientUsername: The username of the recipient.
+amount: The amount to transfer.
+Response: Transfers the amount between users.
