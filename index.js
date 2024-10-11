@@ -22,7 +22,7 @@ app.use(morgan("dev"));
 const database = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "malikshahid",
+  password: "your-password",
   database: "bank",
 });
 
